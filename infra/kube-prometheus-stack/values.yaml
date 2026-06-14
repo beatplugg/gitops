@@ -1,0 +1,70 @@
+kube-prometheus-stack:
+  prometheusOperator:
+    admissionWebhooks:
+      enabled: false
+
+  grafana:
+    enabled: true
+    initChownData:
+      enabled: false
+    persistence:
+      enabled: true
+      storageClassName: local-path
+      size: 10Gi
+    service:
+      type: NodePort
+      nodePort: 30000
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+      hosts:
+        - grafana.homelab
+
+  prometheus:
+    enabled: true
+    prometheusSpec:
+      replicas: 1
+      retention: 7d
+      additionalScrapeConfigs:
+        - job_name: "external-node-exporters"
+          static_configs:
+            - targets:
+                - "192.168.0.110:9100"
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: local-path
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 30Gi
+    service:
+      type: NodePort
+      nodePort: 30001
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+      hosts:
+        - prometheus.homelab
+
+  alertmanager:
+    enabled: true
+    alertmanagerSpec:
+      replicas: 1
+    service:
+      type: NodePort
+      nodePort: 30002
+    ingress:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: web
+      hosts:
+        - alert.homelab
+
+  nodeExporter:
+    enabled: true
+
+  kubeStateMetrics:
+    enabled: true

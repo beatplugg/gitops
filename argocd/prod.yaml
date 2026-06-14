@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prod
+spec:
+  destination:
+    namespace: 'rpi-prod'
+    server: https://kubernetes.default.svc
+  source:
+    path: apps/patch/prod
+    repoURL: https://github.com/beatplugg/gitops
+    targetRevision: HEAD
+  sources: []
+  project: ''
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      enabled: true
+    syncOptions:
+      - CreateNamespace=true
