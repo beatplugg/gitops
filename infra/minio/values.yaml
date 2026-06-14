@@ -4,6 +4,14 @@ replicas: 1
 rootUser: admin
 rootPassword: changeme123
 
+service:
+  type: NodePort
+  nodePort: 30900
+
+consoleService:
+  type: NodePort
+  nodePort: 30901
+
 persistence:
   enabled: true
   storageClass: local-path
