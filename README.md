@@ -21,4 +21,4 @@
 │   │   └── values.yaml
 │   ├── kustomization.yaml
 │   └── opensearch
-└── root-app.yaml ```
+└── root-app.yaml```
