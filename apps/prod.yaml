@@ -7,7 +7,7 @@ spec:
     namespace: ''
     server: https://kubernetes.default.svc
   source:
-    path: prod
+    path: overlays/prod
     repoURL: https://github.com/beatplugg/gitops
     targetRevision: HEAD
   sources: []
