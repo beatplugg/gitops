@@ -1,0 +1,36 @@
+mode: standalone
+replicas: 1
+
+rootUser: admin
+rootPassword: changeme123
+
+persistence:
+  enabled: true
+  storageClass: local-path
+  size: 50Gi
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 512Mi
+  limits:
+    cpu: 1
+    memory: 2Gi
+
+ingress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+  path: /
+  hosts:
+    - minio.homelab
+
+consoleIngress:
+  enabled: true
+  ingressClassName: traefik
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+  path: /
+  hosts:
+    - minio-console.homelab
