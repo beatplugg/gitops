@@ -4,10 +4,10 @@ metadata:
   name: infra
 spec:
   destination:
-    namespace: monitoring
+    namespace: 'rpi-infra'
     server: https://kubernetes.default.svc
   source:
-    path: infra
+    path: overlays/dev
     repoURL: https://github.com/beatplugg/gitops
     targetRevision: HEAD
   sources: []
