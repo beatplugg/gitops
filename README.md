@@ -14,11 +14,16 @@
 ├── infra
 │   ├── argocd-config
 │   │   ├── argocd-cm-patch.yaml
-│   │   └── kustomization.yaml
+│   │   ├── argocd-cmd-params-cm-patch.yaml
+│   │   ├── ingress.yaml
+│   │   ├── kustomization.yaml
+│   │   └── service-patch.yaml
 │   ├── kube-prometheus-stack
-│   │   ├── charts
 │   │   ├── kustomization.yaml
 │   │   └── values.yaml
 │   ├── kustomization.yaml
+│   ├── minio
+│   │   ├── kustomization.yaml
+│   │   └── values.yaml
 │   └── opensearch
 └── root-app.yaml
