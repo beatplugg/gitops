@@ -10,4 +10,4 @@ images:
 
 replicas:
   - name: frontend
-    count: 3
+    count: 1
