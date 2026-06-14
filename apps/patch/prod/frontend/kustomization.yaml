@@ -3,10 +3,4 @@ kind: Kustomization
 resources:
   - ../../../base/frontend
 patches:
-  - target:
-      kind: Deployment
-      name: frontend
-    patch: |-
-      - op: replace
-        path: /spec/replicas
-        value: 3
+  - path: deployment-patch.yaml
