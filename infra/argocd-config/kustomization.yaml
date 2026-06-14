@@ -4,3 +4,6 @@ resources:
   - argocd-cm-patch.yaml
   - argocd-cmd-params-cm-patch.yaml
   - ingress.yaml
+
+patches:
+  - path: service-patch.yaml
