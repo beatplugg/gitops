@@ -4,7 +4,7 @@ metadata:
   name: prod
 spec:
   destination:
-    namespace: ''
+    namespace: 'rpi-prod'
     server: https://kubernetes.default.svc
   source:
     path: overlays/prod
