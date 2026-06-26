@@ -4,8 +4,7 @@ metadata:
   name: loruceanro-ingress
 spec:
   rules:
-    - host: loruceanro.local
-      http:
+    - http:
         paths:
           - path: /api/users
             pathType: Prefix
