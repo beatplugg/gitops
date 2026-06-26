@@ -16,13 +16,13 @@ resources:
   - frontend/deployment.yaml
 
 images:
-  - name: beatplugg/user-service
+  - name: beatplugg/loruceanro-user-service
     newTag: "1.0.0"
-  - name: beatplugg/catalog-service
+  - name: beatplugg/loruceanro-catalog-service
     newTag: "1.0.0"
-  - name: beatplugg/order-service
+  - name: beatplugg/loruceanro-order-service
     newTag: "1.0.0"
-  - name: beatplugg/frontend
+  - name: beatplugg/loruceanro-frontend
     newTag: "1.0.0"
 
 configMapGenerator:

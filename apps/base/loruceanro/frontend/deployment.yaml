@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: beatplugg/frontend
+          image: beatplugg/loruceanro-frontend
           ports:
             - containerPort: 80
           livenessProbe:

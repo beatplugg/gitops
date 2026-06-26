@@ -23,7 +23,7 @@ spec:
             - until pg_isready -h loruceanro-postgres -U beatplugg -d postgres; do sleep 2; done
       containers:
         - name: loruceanro-user-service
-          image: beatplugg/user-service
+          image: beatplugg/loruceanro-user-service
           ports:
             - containerPort: 8000
           env:
