@@ -20,7 +20,7 @@ spec:
           command:
             - sh
             - -c
-            - until pg_isready -h loruceanro-postgres -U user; do sleep 2; done
+            - until pg_isready -h loruceanro-postgres -U beatplugg -d postgres; do sleep 2; done
       containers:
         - name: loruceanro-order-service
           image: beatplugg/order-service
