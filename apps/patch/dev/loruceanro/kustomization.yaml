@@ -8,3 +8,4 @@ resources:
 patches:
   - path: patches/pvc-storage.yaml
   - path: patches/ingress.yaml
+  - path: patches/frontend-svc.yaml
