@@ -3,11 +3,28 @@ kind: Kustomization
 namespace: rpi-dev
 resources:
   - frontend
+  - loruceanro
 
 images:
   - name: nginx
     newTag: 1.27-alpine
+  - name: myregistry/user-service
+    newTag: latest
+  - name: myregistry/catalog-service
+    newTag: latest
+  - name: myregistry/order-service
+    newTag: latest
+  - name: myregistry/frontend
+    newTag: latest
 
 replicas:
   - name: frontend
+    count: 1
+  - name: user-service
+    count: 1
+  - name: catalog-service
+    count: 1
+  - name: order-service
+    count: 1
+  - name: loruceanro-frontend
     count: 1

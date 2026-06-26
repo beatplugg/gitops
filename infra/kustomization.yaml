@@ -4,3 +4,4 @@ resources:
   - kube-prometheus-stack
   - argocd-config
   - minio
+  - sealed-secrets

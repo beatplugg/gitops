@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+commonLabels:
+  app.kubernetes.io/part-of: loruceanro
+
+resources:
+  - configmap.yaml
+  - ingress.yaml
+  - postgres/deployment.yaml
+  - postgres/pvc.yaml
+  - redis/deployment.yaml
+  - user-service/deployment.yaml
+  - catalog-service/deployment.yaml
+  - order-service/deployment.yaml
+  - frontend/deployment.yaml
+
+images:
+  - name: myregistry/user-service
+    newName: beatplugg/loruceanro-user-service
+    newTag: "1.0.0"
+  - name: myregistry/catalog-service
+    newName: beatplugg/loruceanro-catalog-service
+    newTag: "1.0.0"
+  - name: myregistry/order-service
+    newName: beatplugg/loruceanro-order-service
+    newTag: "1.0.0"
+  - name: myregistry/frontend
+    newName: beatplugg/loruceanro-frontend
+    newTag: "1.0.0"
+
+configMapGenerator:
+  - name: postgres-init
+    files:
+      - postgres/init.sql
