@@ -2,15 +2,9 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: loruceanro-ingress
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
-  tls:
-    - hosts:
-        - loruceanro.example.com
-      secretName: loruceanro-tls
   rules:
-    - host: loruceanro.example.com
+    - host: loruceanro-prod.homelab
       http:
         paths:
           - path: /api/users
