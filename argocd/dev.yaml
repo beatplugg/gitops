@@ -11,7 +11,7 @@ spec:
     repoURL: https://github.com/beatplugg/gitops
     targetRevision: HEAD
   sources: []
-  project: ''
+  project: default
   syncPolicy:
     automated:
       prune: true

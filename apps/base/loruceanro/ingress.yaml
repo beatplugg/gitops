@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: loruceanro-ingress
+spec:
+  ingressClassName: traefik
+  rules:
+    - host: loruceanro.example.com
+      http:
+        paths:
+          - path: /api/users
+            pathType: Prefix
+            backend:
+              service:
+                name: loruceanro-user-service
+                port:
+                  number: 8000
+          - path: /api/catalog
+            pathType: Prefix
+            backend:
+              service:
+                name: loruceanro-catalog-service
+                port:
+                  number: 8000
+          - path: /api/orders
+            pathType: Prefix
+            backend:
+              service:
+                name: loruceanro-order-service
+                port:
+                  number: 8000
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: loruceanro-frontend
+                port:
+                  number: 80

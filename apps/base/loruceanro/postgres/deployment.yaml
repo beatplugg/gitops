@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loruceanro-postgres
+  labels:
+    app: loruceanro-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loruceanro-postgres
+  template:
+    metadata:
+      labels:
+        app: loruceanro-postgres
+    spec:
+      containers:
+        - name: loruceanro-postgres
+          image: postgres:16-alpine
+          env:
+            - name: POSTGRES_USER
+              value: "beatplugg"
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secrets
+                  key: postgres-pass
+            - name: POSTGRES_DB
+              value: "usersdb"
+          ports:
+            - containerPort: 5432
+          livenessProbe:
+            exec:
+              command: ["pg_isready", "-U", "beatplugg"]
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            exec:
+              command: ["pg_isready", "-U", "beatplugg"]
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          volumeMounts:
+            - name: data
+              mountPath: /var/lib/postgresql/data
+            - name: init-sql
+              mountPath: /docker-entrypoint-initdb.d
+          resources:
+            requests:
+              cpu: "200m"
+              memory: "256Mi"
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: loruceanro-postgres-pvc
+        - name: init-sql
+          configMap:
+            name: postgres-init
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loruceanro-postgres
+spec:
+  selector:
+    app: loruceanro-postgres
+  ports:
+    - port: 5432
+      targetPort: 5432
+  type: ClusterIP
