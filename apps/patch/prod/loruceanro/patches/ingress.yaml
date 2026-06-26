@@ -3,7 +3,6 @@ kind: Ingress
 metadata:
   name: loruceanro-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
@@ -14,13 +13,27 @@ spec:
     - host: loruceanro.example.com
       http:
         paths:
-          - path: /api
+          - path: /api/users
             pathType: Prefix
             backend:
               service:
-                name: loruceanro-frontend
+                name: user-service
                 port:
-                  number: 80
+                  number: 8000
+          - path: /api/catalog
+            pathType: Prefix
+            backend:
+              service:
+                name: catalog-service
+                port:
+                  number: 8000
+          - path: /api/orders
+            pathType: Prefix
+            backend:
+              service:
+                name: order-service
+                port:
+                  number: 8000
           - path: /
             pathType: Prefix
             backend:
