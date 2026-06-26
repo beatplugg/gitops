@@ -19,7 +19,7 @@ spec:
           image: postgres:16-alpine
           env:
             - name: POSTGRES_USER
-              value: "user"
+              value: "beatplugg"
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -31,12 +31,12 @@ spec:
             - containerPort: 5432
           livenessProbe:
             exec:
-              command: ["pg_isready", "-U", "user"]
+              command: ["pg_isready", "-U", "beatplugg"]
             initialDelaySeconds: 15
             periodSeconds: 10
           readinessProbe:
             exec:
-              command: ["pg_isready", "-U", "user"]
+              command: ["pg_isready", "-U", "beatplugg"]
             initialDelaySeconds: 5
             periodSeconds: 5
           volumeMounts:
