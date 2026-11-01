@@ -7,3 +7,21 @@ helmCharts:
     releaseName: kube-prometheus-stack
     namespace: monitoring
     valuesFile: values.yaml
+
+resources:
+  - grafana-admin-sealedsecret.yaml
+
+# Свои дашборды: JSON в dashboards/, по одному ConfigMap на дашборд
+# (большие JSON в одном ConfigMap упираются в лимит аннотации last-applied 256KB).
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    grafana_dashboard: "1"
+  annotations:
+    grafana_folder: Homelab
+
+configMapGenerator:
+  - name: rpi-temps-dashboard
+    namespace: monitoring
+    files:
+      - dashboards/rpi-temps.json

@@ -6,6 +6,29 @@ grafana:
   enabled: true
   initChownData:
     enabled: false
+  # Логин/пароль admin из SealedSecret (grafana-admin-sealedsecret.yaml).
+  # Без этого чарт генерирует случайный пароль на каждый рендер Argo ->
+  # секрет перезаписывается и Grafana рестартует после любого коммита.
+  admin:
+    existingSecret: grafana-admin
+    userKey: admin-user
+    passwordKey: admin-password
+  # Дашборды подхватываются sidecar'ом из ConfigMap с label grafana_dashboard=1
+  # в любом namespace; папка в Grafana — из аннотации grafana_folder.
+  sidecar:
+    dashboards:
+      enabled: true
+      label: grafana_dashboard
+      labelValue: "1"
+      searchNamespace: ALL
+      folderAnnotation: grafana_folder
+      # дефолтные дашборды kube-prometheus-stack -> папка Kubernetes
+      annotations:
+        grafana_folder: Kubernetes
+      provider:
+        foldersFromFilesStructure: true
+        # правки из UI не сохраняются — источник правды git
+        allowUiUpdates: false
   persistence:
     enabled: true
     storageClassName: local-path
